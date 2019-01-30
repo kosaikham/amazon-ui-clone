@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Platform,
+  StatusBar,
+  Image
+} from "react-native";
 import {
   Container,
   Header,
@@ -8,20 +15,27 @@ import {
   Right,
   Icon,
   Item,
-  Input
+  Input,
+  Card,
+  CardItem
 } from "native-base";
 import FAIcon from "react-native-vector-icons/FontAwesome";
+import Swiper from "react-native-swiper";
+import RecommandCardItem from "../components/RecommandCardItem";
 
 class HomeScreen extends Component {
   render() {
     return (
       <Container>
         <Header
-          style={{
-            height: 90,
-            backgroundColor: "#3a455c",
-            borderBottomColor: "#757575"
-          }}
+          style={[
+            {
+              height: 90,
+              backgroundColor: "#3a455c",
+              borderBottomColor: "#757575"
+            },
+            styles.androidHeader
+          ]}
         >
           <Left
             style={{
@@ -56,7 +70,7 @@ class HomeScreen extends Component {
         <View
           style={{
             position: "absolute",
-            top: 100,
+            top: Platform.OS == "android" ? 90 : 100,
             left: 0,
             right: 0,
             backgroundColor: "#3a455c",
@@ -74,7 +88,8 @@ class HomeScreen extends Component {
                 height: 50,
                 backgroundColor: "#e7e7eb",
                 borderRadius: 4,
-                padding: 10
+                padding: 10,
+                justifyContent: "center"
               }}
             >
               <Text
@@ -122,7 +137,7 @@ class HomeScreen extends Component {
         <Content
           style={{
             backgroundColor: "#d5d5d6",
-            marginTop: 55
+            marginTop: Platform.OS == "android" ? 70 : 55
           }}
         >
           <View
@@ -157,10 +172,104 @@ class HomeScreen extends Component {
               />
             </View>
           </View>
+
+          <Swiper
+            autoplay={true}
+            style={{
+              height: 100,
+              marginTop: 10
+            }}
+          >
+            <View style={{ flex: 1 }}>
+              <Image
+                source={require("../../assets/banner_1.jpeg")}
+                style={{
+                  flex: 1,
+                  width: null,
+                  height: null,
+                  resizeMode: "cover"
+                }}
+              />
+            </View>
+            <View style={{ flex: 1 }}>
+              <Image
+                source={require("../../assets/banner_2.png")}
+                style={{
+                  flex: 1,
+                  width: null,
+                  height: null,
+                  resizeMode: "cover"
+                }}
+              />
+            </View>
+            <View style={{ flex: 1 }}>
+              <Image
+                source={require("../../assets/banner_3.jpeg")}
+                style={{
+                  flex: 1,
+                  width: null,
+                  height: null,
+                  resizeMode: "cover"
+                }}
+              />
+            </View>
+          </Swiper>
+
+          <Card
+            style={{
+              marginTop: 10,
+              marginRight: 5,
+              marginLeft: 5
+            }}
+          >
+            <CardItem
+              header
+              style={{
+                borderBottomWidth: 1,
+                borderBottomColor: "#dddddd"
+              }}
+            >
+              <Text>Your Recommandations</Text>
+            </CardItem>
+            <RecommandCardItem
+              itemName="Building Bots with Node.js"
+              itemCreator="Eduardo Freitas, Madan Bhintade"
+              itemPrice="$39"
+              itemSaving="5.5"
+              imageUri={require("../../assets/recommand_1.jpg")}
+              rating={5}
+            />
+            <RecommandCardItem
+              itemName="Getting Started with React Native"
+              itemCreator="Ethan Holmes, Tom Bray"
+              itemPrice="$26"
+              itemSaving="5.5"
+              imageUri={require("../../assets/recommand_2.jpg")}
+              rating={5}
+            />
+            <RecommandCardItem
+              itemName="MERN Quick Start Guide"
+              itemCreator="Eddy Wilson Iriarte Koroliova"
+              itemPrice="$29"
+              itemSaving="5.5"
+              imageUri={require("../../assets/recommand_3.jpg")}
+              rating={5}
+            />
+          </Card>
         </Content>
       </Container>
     );
   }
 }
+
+const styles = {
+  androidHeader: {
+    ...Platform.select({
+      android: {
+        paddingTop: StatusBar.currentHeight
+      }
+    })
+  }
+};
 
 export default HomeScreen;
