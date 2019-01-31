@@ -10,7 +10,7 @@ It only includes home page and drawerNavigation of Amazon mobile app. This is on
 ## Demo
 
 <p align="center">
-  <img src = "#" width=500>
+  <img src = "https://i.imgur.com/lonvgRY.gif" width=500>
 </p>
 
 ## Run it locally
