@@ -43,6 +43,7 @@ class HomeScreen extends Component {
             }}
           >
             <Icon
+              onPress={() => this.props.navigation.toggleDrawer()}
               name="md-menu"
               style={{
                 fontSize: 30,
